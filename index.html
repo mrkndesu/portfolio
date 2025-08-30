@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muu's Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="dist/style.css">
+</head>
+<body>
+
+    <div class="background-stars"></div>
+
+    <div class="scroll-container">
+
+        <header class="main-header">
+            <div class="logo">M.</div>
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skill</a>
+                <a href="#works">Work</a>
+            </nav>
+            <button class="hamburger-menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section id="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="char">M</span><span class="char">u</span>
+                    </h1>
+                    <p class="hero-subtitle">A Portfolio For My Next Step.</p>
+
+                    <a href="https://github.com/mrkndesu" target="_blank" rel="noopener noreferrer" class="hero-github-link">
+                        mrkndesu <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+                <a href="#about" class="scroll-indicator">
+                    <div class="arrow"></div>
+                </a>
+            </section>
+
+            <!-- About Section -->
+            <section id="about">
+                <div class="section-container">
+                    <div class="section-header">
+                        <span class="section-number">01</span>
+                        <h2 class="section-title">About</h2>
+                    </div>
+                    <div class="section-content about-content">
+                        <p class="about-intro">
+                            未経験から田舎の小さなIT企業に就職しフルスタックエンジニアとして働いています。
+                        </p>
+                        <ul class="about-details">
+                            <li><span>名前</span>むう</li>
+                            <li><span>年齢</span>24</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills">
+                <div class="section-container">
+                    <div class="section-header">
+                        <span class="section-number">02</span>
+                        <h2 class="section-title">Skill</h2>
+                    </div>
+                    <div class="section-content">
+                        <ul class="skill-list">
+                            <li>
+                                <div class="skill-info">
+                                    <span class="skill-name">Go</span>
+                                </div>
+                                <div class="skill-bar"><div class="skill-level" data-level="75"></div></div>
+                            </li>
+                            <li>
+                                <div class="skill-info">
+                                    <span class="skill-name">JavaScript</span>
+                                </div>
+                                <div class="skill-bar"><div class="skill-level" data-level="40"></div></div>
+                            </li>
+                            <li>
+                                <div class="skill-info">
+                                    <span class="skill-name">Python</span>
+                                </div>
+                                <div class="skill-bar"><div class="skill-level" data-level="25"></div></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Works Section -->
+            <section id="works">
+                <div class="section-container">
+                    <div class="section-header">
+                        <span class="section-number">03</span>
+                        <h2 class="section-title">Work</h2>
+                    </div>
+                    <div class="section-content works-grid">
+                        <div class="work-card">
+                            <a href="#" class="work-card-link">
+                                <div class="work-card-image">
+                                    <img src="./image/saturn.png" alt="Devcord project image">
+                                </div>
+                                <div class="work-card-content">
+                                    <h3 class="work-title">Devcord (開発中)</h3>
+                                    <p class="work-category">Web Development</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script src="dist/script.js"></script>
+</body>
+</html>
