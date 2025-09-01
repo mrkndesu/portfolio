@@ -97,6 +97,8 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   z-index: 101;
+  text-decoration: none;
+  color: var(--text-color);
 }
 .main-header .nav-links a {
   color: var(--text-color);
@@ -115,14 +117,74 @@ body {
   border: none;
   cursor: pointer;
   z-index: 101;
+  color: var(--primary-color);
+  font-family: var(--font-sans);
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
-.hamburger-menu .bar {
+
+.icon-bars {
+  width: 25px;
+  height: 17px;
+  position: relative;
+}
+.icon-bars .bar {
   display: block;
   width: 25px;
   height: 2px;
-  margin: 5px auto;
   background-color: var(--primary-color);
   transition: all 0.3s ease-in-out;
+  position: absolute;
+  left: 0;
+}
+.icon-bars .bar:nth-child(1) {
+  top: 0;
+}
+.icon-bars .bar:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.icon-bars .bar:nth-child(3) {
+  bottom: 0;
+}
+
+.menu-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  position: relative;
+  width: 40px;
+  height: 1em;
+  text-align: center;
+}
+
+.label-menu, .label-close {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.label-close {
+  opacity: 0;
+}
+
+.hamburger-menu.toggle .icon-bars .bar:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+.hamburger-menu.toggle .icon-bars .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-menu.toggle .icon-bars .bar:nth-child(3) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(45deg);
+}
+.hamburger-menu.toggle .label-menu {
+  opacity: 0;
+}
+.hamburger-menu.toggle .label-close {
+  opacity: 1;
 }
 
 main > section {
@@ -149,7 +211,6 @@ main > section {
   flex-direction: column;
   text-align: center;
   position: relative;
-  overflow: hidden;
   padding: 2rem;
 }
 
@@ -162,15 +223,21 @@ main > section {
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.05em;
+  margin: 0;
 }
 
-.hero-title-bg {
-  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
-  background-attachment: fixed;
+.hero-title-bg,
+.hero-title-fg {
+  background-image: url("../image/earth.jpg");
+  background-size: cover;
   background-position: center;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: pan-background 40s linear infinite;
+}
+
+.hero-title-bg {
   text-shadow: none;
 }
 
@@ -180,27 +247,19 @@ main > section {
   left: 0;
   width: 100%;
   height: 100%;
-  color: var(--primary-color);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0);
-  clip-path: inset(0 100% 0 0);
-}
-.hero-title-fg .gsap-marker-text {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background-color: var(--primary-color);
-  animation: blink 0.7s infinite;
+  filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.8));
+  opacity: 0;
 }
 
-@keyframes blink {
+@keyframes pan-background {
   0% {
-    opacity: 1;
+    background-position: 0% 50%;
   }
   50% {
-    opacity: 0;
+    background-position: 100% 50%;
   }
   100% {
-    opacity: 1;
+    background-position: 0% 50%;
   }
 }
 .hero-subtitle, .hero-github-link {
@@ -366,7 +425,7 @@ main > section {
   border-radius: 4px;
 }
 
-.works-grid {
+.work-grid {
   display: grid;
   justify-content: center;
   grid-template-columns: minmax(auto, 500px);
@@ -422,6 +481,12 @@ main > section {
   transform: scale(1.05);
 }
 
+@media (min-width: 769px) {
+  .hero-title-bg,
+  .hero-title-fg {
+    background-attachment: fixed;
+  }
+}
 @media (max-width: 768px) {
   #hero {
     padding: 0 5%;
@@ -443,7 +508,7 @@ main > section {
     transform: translateX(100%);
     transition: transform 0.4s ease-in-out;
   }
-  .nav-links a {
+  .main-header .nav-links a {
     margin: 2rem 0;
     font-size: 1.5rem;
   }
@@ -451,7 +516,7 @@ main > section {
     transform: translateX(0);
   }
   .hamburger-menu {
-    display: block;
+    display: flex;
   }
   .hamburger-menu.toggle .bar:nth-child(1) {
     transform: rotate(-45deg) translate(-5px, 6px);
@@ -477,7 +542,7 @@ main > section {
   .about-content .about-intro {
     font-size: 1.2rem;
   }
-  .works-grid {
+  .work-grid {
     grid-template-columns: 1fr;
   }
 }

@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     // GSAPにプラグインを登録
-    gsap.registerPlugin(ScrollTrigger, TextPlugin);
+    gsap.registerPlugin(ScrollTrigger);
     var scroller = document.querySelector('.scroll-container');
     var preloader = document.querySelector('.preloader');
-    // --- ローディングアニメーション ---
+    // --- 1. ローディングとイントロのマスタータイムライン ---
     var masterTl = gsap.timeline();
     masterTl
         // ステップ1: ローディングバー
@@ -27,40 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
         visibility: 'visible',
         duration: 0
     }, "-=0.5")
-        // ステップ4: タイピングアニメーション
-        .to('.hero-title-fg', {
-        text: { value: "Mu", delimiter: "" },
-        duration: 0.6,
-        ease: 'none',
-        onComplete: function () {
-            var bgTitle = document.querySelector('.hero-title-bg');
-            if (bgTitle)
-                bgTitle.textContent = "Muu";
-        }
-    })
-        // ステップ5: インパクトのある発光アニメーション
-        .to('.hero-title-fg', {
-        clipPath: 'inset(0 0% 0 0)',
-        textShadow: '0 0 30px rgba(255, 255, 255, 1), 0 0 50px rgba(255, 255, 255, 0.8)',
-        duration: 0.1,
-        ease: 'power2.in'
-    })
-        .to('.hero-title-fg', {
-        textShadow: '0 0 80px rgba(255, 255, 255, 0.5), 0 0 120px rgba(255, 255, 255, 0.3)',
-        duration: 0.4,
-        ease: 'power2.out'
-    })
-        .to('.hero-title-fg', {
-        textShadow: '0 0 20px rgba(255, 255, 255, 0.8)',
-        duration: 1.5,
-        ease: 'power3.out'
-    })
-        // ステップ6: サブタイトルとリンクのフェードイン
-        .to('.hero-subtitle, .hero-github-link', {
+        // ステップ4: ヒーロー要素のフェードインアニメーション
+        .fromTo('.hero-title-container, .hero-subtitle, .hero-github-link', { opacity: 0, y: 30 }, {
         opacity: 1,
-        duration: 1,
-        ease: 'power2.out'
-    }, "<");
+        y: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1
+    });
     // --- 背景のパララックス効果 ---
     gsap.to('.background-stars', {
         y: '20vh',
@@ -87,32 +61,31 @@ document.addEventListener('DOMContentLoaded', function () {
         ease: 'power4.out',
         stagger: 0.1
     });
-    // Skillsセクション
+    // Skillセクション
     var skillsTl = gsap.timeline({
         scrollTrigger: {
             scroller: scroller,
-            trigger: '#skills',
+            trigger: '#skill',
             start: 'top 60%',
             toggleActions: 'play none none none'
         }
     });
-    skillsTl.to('#skills .section-header, #skills .section-content', {
+    skillsTl.to('#skill .section-header, #skill .section-content', {
         clipPath: 'inset(0 0 0% 0)',
         duration: 1.2,
         ease: 'power4.out',
         stagger: 0.1
     })
-        .fromTo('.skill-level', { width: '0%' }, { width: function (i, target) { return "".concat(target.dataset.level, "%"); }, duration: 1.5, ease: 'power3.out', stagger: 0.1 }, "<" // 同時に開始
-    );
-    // Worksセクション
+        .fromTo('.skill-level', { width: '0%' }, { width: function (i, target) { return "".concat(target.dataset.level, "%"); }, duration: 1.5, ease: 'power3.out', stagger: 0.1 }, "<");
+    // Workセクション
     gsap.timeline({
         scrollTrigger: {
             scroller: scroller,
-            trigger: '#works',
+            trigger: '#work',
             start: 'top 60%',
             toggleActions: 'play none none none'
         }
-    }).to('#works .section-header, #works .section-content, #works .work-card', {
+    }).to('#work .section-header, #work .section-content, #work .work-card', {
         clipPath: 'inset(0 0 0% 0)',
         duration: 1.2,
         ease: 'power4.out',

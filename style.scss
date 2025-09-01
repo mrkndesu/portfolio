@@ -55,6 +55,8 @@ body {
         font-size: 1.5rem; 
         font-weight: 700; 
         z-index: 101; 
+        text-decoration: none;
+        color: var(--text-color);
     }
     .nav-links a {
         color: var(--text-color); 
@@ -67,11 +69,72 @@ body {
         }
     }
 }
+
+// --- ハンバーガーメニューのスタイル ---
 .hamburger-menu {
-    display: none; background: none; border: none; cursor: pointer; z-index: 101;
+    display: none;
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    z-index: 101;
+    color: var(--primary-color);
+    font-family: var(--font-sans);
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.icon-bars {
+    width: 25px;
+    height: 17px;
+    position: relative;
     .bar {
-        display: block; width: 25px; height: 2px; margin: 5px auto;
-        background-color: var(--primary-color); transition: all 0.3s ease-in-out;
+        display: block; 
+        width: 25px; 
+        height: 2px; 
+        background-color: var(--primary-color); 
+        transition: all 0.3s ease-in-out;
+        position: absolute;
+        left: 0;
+        &:nth-child(1) { top: 0; }
+        &:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        &:nth-child(3) { bottom: 0; }
+    }
+}
+.menu-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    position: relative;
+    width: 40px;
+    height: 1em;
+    text-align: center;
+}
+.label-menu, .label-close {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.label-close {
+    opacity: 0;
+}
+
+.hamburger-menu.toggle {
+    .icon-bars .bar:nth-child(1) { 
+        top: 50%;
+        transform: translateY(-50%) rotate(-45deg); 
+    }
+    .icon-bars .bar:nth-child(2) { 
+        opacity: 0; 
+    }
+    .icon-bars .bar:nth-child(3) { 
+        bottom: 50%;
+        transform: translateY(50%) rotate(45deg); 
+    }
+    .label-menu {
+        opacity: 0;
+    }
+    .label-close {
+        opacity: 1;
     }
 }
 
@@ -90,9 +153,10 @@ main > section {
 // --- ヒーローセクションのデザイン ---
 #hero {
     flex-direction: column; text-align: center; position: relative;
-    overflow: hidden; padding: 2rem;
+    padding: 2rem;
 }
 
+// ▼ 修正点: position: relative を追加 ▼
 .hero-title-container {
     position: relative;
 }
@@ -102,16 +166,22 @@ main > section {
     font-weight: 700; 
     line-height: 1;
     letter-spacing: -0.05em;
+    // ▼ 修正点: marginをリセット ▼
+    margin: 0;
 }
 
-
-.hero-title-bg {
-    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-    background-attachment: fixed;
+.hero-title-bg,
+.hero-title-fg {
+    background-image: url('../image/earth.jpg');
+    background-size: cover;
     background-position: center;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: pan-background 40s linear infinite;
+}
+
+.hero-title-bg {
     text-shadow: none;
 }
 
@@ -121,28 +191,14 @@ main > section {
     left: 0;
     width: 100%;
     height: 100%;
-    color: var(--primary-color);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0);
-    clip-path: inset(0 100% 0 0);
-
-    .gsap-marker-text {
-        display: inline-block; 
-        width: 2px; 
-        height: 1em;
-        background-color: var(--primary-color); 
-        animation: blink 0.7s infinite;
-    }
+    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.8));
+    opacity: 0;
 }
-@keyframes blink { 
-    0% { 
-        opacity: 1; 
-    } 
-    50% { 
-        opacity: 0; 
-    } 
-    100% { 
-        opacity: 1; 
-    } 
+
+@keyframes pan-background {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .hero-subtitle, .hero-github-link { 
@@ -198,15 +254,7 @@ main > section {
     }
 }
 @keyframes scroll-anim { 
-    0% { 
-        transform: translateY(0); 
-    } 
-    50% { 
-        transform: translateY(75px); 
-    } 
-    100% { 
-        transform: translateY(75px); 
-    } 
+    0% { transform: translateY(0); } 50% { transform: translateY(75px); } 100% { transform: translateY(75px); } 
 }
 
 // --- セクション共通スタイル ---
@@ -278,7 +326,7 @@ main > section {
     }
 }
 
-// --- Skillsセクション ---
+// --- Skillセクション ---
 .skill-list { 
     list-style: none; 
     display: grid; 
@@ -303,8 +351,8 @@ main > section {
     border-radius: 4px; 
 }
 
-// --- Worksセクション ---
-.works-grid { 
+// --- Workセクション ---
+.work-grid { 
     display: grid; 
     justify-content: center; 
     grid-template-columns: minmax(auto, 500px); 
@@ -354,6 +402,13 @@ main > section {
 }
 
 // --- レスポンシブ対応 ---
+@media (min-width: 769px) {
+    .hero-title-bg,
+    .hero-title-fg {
+        background-attachment: fixed;
+    }
+}
+
 @media (max-width: 768px) {
     #hero { 
         padding: 0 5%; 
@@ -371,19 +426,20 @@ main > section {
         display: flex; 
         flex-direction: column; 
         justify-content: center; 
-        align-items: center;
+        align-items: center; 
         transform: translateX(100%); 
         transition: transform 0.4s ease-in-out;
-        a { 
-            margin: 2rem 0; 
-            font-size: 1.5rem; 
-        }
     }
+    .main-header .nav-links a {
+        margin: 2rem 0; 
+        font-size: 1.5rem; 
+    }
+
     .nav-links.nav-active { 
         transform: translateX(0); 
     }
     .hamburger-menu { 
-        display: block; 
+        display: flex;
     }
     .hamburger-menu.toggle .bar:nth-child(1) { 
         transform: rotate(-45deg) translate(-5px, 6px); 
@@ -412,7 +468,7 @@ main > section {
         font-size: 1.2rem;
     }
     
-    .works-grid { 
+    .work-grid { 
         grid-template-columns: 1fr; 
     }
 }
